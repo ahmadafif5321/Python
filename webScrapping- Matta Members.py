@@ -4,10 +4,11 @@ import pandas as pd
 import os
 
 def scrape_matta_members():
+    # can put URL that you want to scrap. for this one im using matta members
     base_url = "https://www.matta.org.my/members?page="
     members = []
 
-    for page in range(1, 50):  # Assuming there are 49 pages
+    for page in range(1, 50): #page 1 to 49
         url = f"{base_url}{page}"
         response = requests.get(url)
         if response.status_code != 200:
@@ -17,6 +18,7 @@ def scrape_matta_members():
         soup = BeautifulSoup(response.content, 'html.parser')
         
         # Find the section containing the member details
+        # From the website, there is class card-box that can be used
         member_list = soup.find_all('div', class_='card-box')
         if not member_list:
             print(f"No members found on page {page}")
